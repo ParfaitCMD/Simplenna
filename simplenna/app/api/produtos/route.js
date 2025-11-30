@@ -9,7 +9,7 @@ const PRODUTOS_MOCK = [
         nome: "Loção Hidratante Framboesa e Cereja",
         marca: "Eudora",
         preco: 55.90,
-        imagemUrl: "/imagens/eudora_framboesa.jpg",
+        imagemUrl: "/images/download.jpg",
         categoria: "Corpo e Banho"
     },
     {
