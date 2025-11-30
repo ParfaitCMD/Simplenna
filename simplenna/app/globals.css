@@ -1,23 +1,38 @@
-@import "tailwindcss";
+/* app/globals.css */
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* 1. DIRETIVAS DO TAILWIND (OBRIGATÓRIO E ESSENCIAL!) */
+/* Essas linhas injetam todas as classes utilitárias do framework. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
+/* 2. ESTILOS GLOBAIS MÍNIMOS */
+
+/* Definimos a fonte padrão para o corpo do site */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+
+  /* Garantimos que a cor de fundo seja branca por padrão, 
+     evitando o fundo preto do dark mode que estava em conflito. */
+  background-color: white;
+}
+
+/* 3. Estilo para o scrollbar (Opcional, mas melhora a estética) */
+/* Isso deixa a barra de rolagem mais discreta e bonita */
+body::-webkit-scrollbar {
+  width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #c3c3c3;
+  border-radius: 4px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
 }
