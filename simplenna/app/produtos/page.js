@@ -4,7 +4,7 @@ import CardProduto from '../../../components/CardProduto';
 // Função que busca dados da nossa API interna
 async function getProdutos() {
     // ATENÇÃO: Use a URL COMPLETA para rodar localmente
-    const res = await fetch('http://localhost:3000/api/produtos', {
+    const res = await fetch('http://localhost:3000/api/produtos, https://simplenna.onrender.com', {
         cache: 'no-store',
     });
 
