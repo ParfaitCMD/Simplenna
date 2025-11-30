@@ -13,7 +13,7 @@
 body {
   font-family: ui-sans-serif, system-ui, sans-serif;
 
-  /* Garantimos que a cor de fundo seja branca por padrão, 
+  /* Garantimos que a cor de fundo seja branca por padrão,
      evitando o fundo preto do dark mode que estava em conflito. */
   background-color: white;
 }
