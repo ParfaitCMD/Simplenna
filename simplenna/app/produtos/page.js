@@ -8,7 +8,8 @@ async function getProdutos() {
     //    - OU usa o localhost (se a variável de ambiente não estiver definida)
     const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
-    // 2. O fetch usa o endereço base e CONCATENA o caminho da API interna
+    // 2. O fetch usa o endereço base e CONCATENA o caminho da API interna.
+    // Esta é a ÚNICA execução do fetch.
     const res = await fetch(`${API_URL}/api/produtos`, {
         cache: 'no-store', // Importante para garantir dados atualizados
     });
@@ -22,6 +23,7 @@ async function getProdutos() {
 }
 
 export default async function ProdutosPage() {
+    // É crucial que o fetch funcione aqui, pois é um Server Component
     const produtos = await getProdutos();
 
     return (
