@@ -3,19 +3,29 @@
 import CardProduto from '@/components/CardProduto';
 
 // ----------------------------------------------------
-// Função para buscar dados da API (PONTO DE FALHA)
+// Função para buscar dados da API (SOLUÇÃO FINAL)
 // ----------------------------------------------------
 async function getProdutos() {
+    // 1. Define a URL base: 
+    // Em produção, usaremos a URL pública, mas com um header especial.
+    // Em desenvolvimento, continuamos com localhost:3000.
     const API_BASE_URL = process.env.IS_RENDER_DEPLOY === 'true' ?
-        'http://localhost:10000' :
+        'https://simplenna.onrender.com' : // <-- FORÇAMOS a URL pública
         'http://localhost:3000';
 
+    // 2. Define o Header Host (CRUCIAL para o Render aceitar o self-request)
+    const fetchHeaders = process.env.IS_RENDER_DEPLOY === 'true' ? {
+        // O Render precisa desse cabeçalho para saber para onde rotear a requisição
+        'Host': 'simplenna.onrender.com'
+    } : {};
+
+    // 3. Executa o fetch
     const res = await fetch(`${API_BASE_URL}/api/produtos`, {
         cache: 'no-store',
+        headers: fetchHeaders, // Adiciona o cabeçalho Host
     });
 
     if (!res.ok) {
-        // Lança o erro se a API retornar 404/500
         console.error(`Falha ao buscar a API interna. URL Tentada: ${API_BASE_URL}/api/produtos`);
         throw new Error(`Falha no servidor (${res.status}): Não foi possível carregar os produtos.`);
     }
@@ -31,22 +41,18 @@ export default async function ProdutosPage() {
     let loadError = null;
 
     try {
-        // A função getProdutos é onde o await fetch() acontece e pode falhar
         produtos = await getProdutos();
     } catch (error) {
-        // Captura o erro da rede/API e armazena
         console.error("Erro capturado na renderização da página:", error.message);
         loadError = error;
     }
 
-    // Se houver um erro, mostre a mensagem amigável
     if (loadError) {
         return (
             <main className="container mx-auto p-8 min-h-screen flex flex-col justify-center items-center">
-                <h1 className="text-4xl font-bold text-red-600 mb-4">Erro ao Carregar Produtos</h1>
-                <p className="text-lg text-gray-600">A vitrine não pôde ser carregada devido a um erro de conexão.</p>
-                <p className="text-sm text-gray-400 mt-2">Verifique a variável de ambiente **IS_RENDER_DEPLOY** no Render.</p>
-                <p className="text-xs text-gray-500 mt-2">Detalhes: {loadError.message}</p>
+                <h1 className="text-4xl font-bold text-red-600 mb-4">Erro Crítico de Conexão</h1>
+                <p className="text-lg text-gray-600">A vitrine não pôde ser carregada. Por favor, verifique se a API está ativa.</p>
+                <p className="text-sm text-gray-400 mt-2">Detalhes: {loadError.message}</p>
             </main>
         );
     }
