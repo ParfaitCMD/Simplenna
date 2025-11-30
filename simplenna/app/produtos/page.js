@@ -1,5 +1,5 @@
 // app/produtos/page.js
-import CardProduto from '../../../components/CardProduto';
+import CardProduto from '@/components/CardProduto';
 
 // Função que busca dados da nossa API interna
 async function getProdutos() {
